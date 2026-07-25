@@ -1,4 +1,4 @@
-/* ROOT VARIABLES - Balanced Professional Dark Theme */
+/* ROOT VARIABLES & GLOBAL FIX FOR ZOOM/OVERFLOW */
 :root {
     --bg-color: #0b0f19;
     --card-bg: rgba(18, 24, 38, 0.85);
@@ -18,56 +18,59 @@
     scroll-behavior: smooth;
 }
 
-body {
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
     background-color: var(--bg-color);
     color: var(--text-main);
     font-family: var(--font-main);
     line-height: 1.6;
-    overflow-x: hidden;
     position: relative;
     -webkit-font-smoothing: antialiased;
-    width: 100%;
 }
 
 .container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 16px; /* Optimized padding for mobile */
+    padding: 0 16px;
 }
 
-/* AMBIENT LIGHTING ORBS */
+/* AMBIENT LIGHTING ORBS (Clipped to prevent overflow/zoom) */
 .bg-glow {
     position: absolute;
     border-radius: 50%;
-    filter: blur(140px);
+    filter: blur(120px);
     z-index: -1;
-    opacity: 0.3;
+    opacity: 0.25;
     pointer-events: none;
+    max-width: 80vw;
 }
 .circle-1 {
-    top: 50px;
-    left: -100px;
-    width: 450px;
-    height: 450px;
+    top: 30px;
+    left: -50px;
+    width: 300px;
+    height: 300px;
     background: var(--primary);
 }
 .circle-2 {
     top: 35%;
-    right: -100px;
-    width: 500px;
-    height: 500px;
+    right: -50px;
+    width: 350px;
+    height: 350px;
     background: var(--secondary);
 }
 
-/* NAVBAR - Fixed Overflow */
+/* NAVBAR */
 .navbar {
-    padding: 18px 0;
+    padding: 16px 0;
     position: fixed;
     width: 100%;
     top: 0;
+    left: 0;
     z-index: 1000;
     transition: all 0.3s ease;
-    left: 0;
 }
 .navbar.scrolled {
     background: rgba(11, 15, 25, 0.95);
@@ -84,7 +87,7 @@ body {
     width: 100%;
 }
 .logo {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     color: #fff;
     text-decoration: none;
@@ -93,7 +96,7 @@ body {
     gap: 6px;
     letter-spacing: 0.5px;
 }
-.logo i { color: var(--primary); font-size: 18px; }
+.logo i { color: var(--primary); font-size: 16px; }
 .logo span { font-weight: 300; color: #cbd5e1; }
 
 .nav-actions {
@@ -110,7 +113,7 @@ body {
 }
 .nav-link-main:hover { color: #fff; }
 
-/* GLOW BUTTON - Compact for Mobile */
+/* GLOW BUTTON */
 .btn-glow {
     display: inline-flex;
     align-items: center;
@@ -158,7 +161,7 @@ body {
     font-weight: 600;
 }
 .hero h1 {
-    font-size: 42px; /* Adjusted for mobile view perfection */
+    font-size: 38px;
     line-height: 1.15;
     font-weight: 800;
     margin-bottom: 18px;
@@ -169,7 +172,7 @@ body {
     -webkit-text-fill-color: transparent;
 }
 .hero p {
-    font-size: 15.5px;
+    font-size: 15px;
     color: var(--text-muted);
     margin-bottom: 30px;
     font-weight: 400;
@@ -198,13 +201,13 @@ body {
     margin-bottom: 40px;
 }
 .section-title h2 {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 700;
     margin-bottom: 8px;
 }
 .section-title p {
     color: var(--text-muted);
-    font-size: 15px;
+    font-size: 14.5px;
 }
 
 .grid-container {
@@ -213,7 +216,7 @@ body {
     gap: 20px;
 }
 
-/* GLASSMORPHISM CARD */
+/* GLASSMORPHISM CARD (Pointer-events fixed for mobile click) */
 .glass-card {
     background: var(--card-bg);
     backdrop-filter: blur(12px);
@@ -233,7 +236,7 @@ body {
     background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 100%);
     opacity: 0;
     transition: 0.35s;
-    pointer-events: none;
+    pointer-events: none; /* CRITICAL FIX: prevents blocking mobile clicks */
 }
 .glass-card:hover {
     transform: translateY(-6px);
@@ -328,10 +331,13 @@ body {
 /* RESPONSIVE DESIGN */
 @media (min-width: 768px) {
     .hero h1 { font-size: 52px; }
+    .section-title h2 { font-size: 34px; }
 }
 
 @media (max-width: 768px) {
     .nav-link-main { display: none; }
     .footer-content { flex-direction: column; text-align: center; }
-        }
-                   
+    .logo { font-size: 16px; gap: 4px; }
+    .logo i { font-size: 14px; }
+    .btn-glow { padding: 6px 14px; font-size: 12px; }
+}
