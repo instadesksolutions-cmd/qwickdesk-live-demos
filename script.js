@@ -2,7 +2,7 @@
 const navbar = document.getElementById('navbar');
 
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
+    if (window.scrollY > 40) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
@@ -16,7 +16,7 @@ function reveal() {
     for (var i = 0; i < reveals.length; i++) {
         var windowHeight = window.innerHeight;
         var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 100; // Jab element 100px screen mein aaye tab animate ho
+        var elementVisible = 80;
 
         if (elementTop < windowHeight - elementVisible) {
             reveals[i].classList.add("active");
@@ -24,8 +24,5 @@ function reveal() {
     }
 }
 
-// Check reveal elements on scroll
 window.addEventListener("scroll", reveal);
-
-// Check reveal elements on page load
 reveal();
